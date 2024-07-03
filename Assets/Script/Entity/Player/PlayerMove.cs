@@ -25,7 +25,11 @@ public class PlayerMove : Node
 			state = NodeState.Failure;
 			return state;
 		}
-
+		if (pm.isDialog)
+		{
+			state = NodeState.Failure;
+			return state;
+		} 
 		float _moveX = Input.GetAxisRaw("Horizontal");
 		float _moveZ = Input.GetAxisRaw("Vertical");
 		Vector3 _moveH = pm.transform.right * _moveX;

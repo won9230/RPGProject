@@ -27,6 +27,8 @@ public class PlayerManager : Entity
 	public LayerMask obstacleMask;
 	[Header("스킬 키")]
 	public KeyCode[] keys;
+	[Header("다이얼 로그")]
+	public bool isDialog;
 	[Header("기타")]
 	public LayerMask groundLayer;
 	public float groundCheck = 0.2f;

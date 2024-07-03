@@ -28,24 +28,14 @@ public class DataParser : MonoBehaviour
 	private static readonly string NEXT2 = "Next2";
 	private static readonly string CHOICE3 = "Choice3";
 	private static readonly string NEXT3 = "Next3";
-	List<DialogParserData> dialogDatas = new List<DialogParserData>();
-
-	//private DialogData GetData()
-	//{
-
-	//}
-
-	//private List<DialogData> GetDialogDatas()
-	//{
-
-	//}
+	public List<DialogParserData> dialogDatas = new List<DialogParserData>();
 
 	private void Awake()
 	{
 		var parser = CSVReader.Read(FILE_DATA);
         foreach (var item in parser)
         {
-			Debug.Log($"next3.GetType() {item[NEXT3].GetType()}");
+			//Debug.Log($"next3.GetType() {item[NEXT3].GetType()}");
 			var index = (int)item[INDEX];
 			var speaker = (string)item[SPEAKER];
 			var dialogue = (string)item[DIALOGUE];
@@ -57,10 +47,6 @@ public class DataParser : MonoBehaviour
 			int next3 = item[NEXT3].GetType() == 1.GetType() ? (int)item[NEXT3] : -1;
 
 			dialogDatas.Add(GetDialogData(index, speaker, dialogue, choice1, choice2, choice3, next1, next2, next3));
-        }
-        foreach (var item in dialogDatas)
-        {
-			Debug.Log($"id {item.index}");
         }
     }
 

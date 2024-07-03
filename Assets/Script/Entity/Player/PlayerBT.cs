@@ -7,8 +7,6 @@ public class PlayerBT : Tree
 {
 	public PlayerManager pm;
 
-	
-
 	//플레이어 스킬
 	//플레이어 죽음
 	//플레이어 아이템 먹기
@@ -31,11 +29,9 @@ public class PlayerBT : Tree
 				new PlayerMove(pm),	//플레이어 이동
 				new PlayerJump(pm),	//플레이어 점프
 			}),
-			new Selector(new List<Node>
-			{
-				new PlayerAttack(pm),		//플레이어 공격
-			})
-			
+			new PlayerAttack(pm),		//플레이어 공격
+			new PlayerDialog(pm),
+
 		});
 		return root;
 	}
