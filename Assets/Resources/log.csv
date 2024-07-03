@@ -1,0 +1,8 @@
+Index,Speaker,Dialogue,Choice1,Next1,Choice2,Next2,Choice3,Next3
+0,수인여자,"안녕하세요, 모험가님! 슬라임들이 마을 주변을 어지럽히고 있어요.",무슨 도움이 필요하신가요?,1,다른 일이 있어서요.,6,null,null
+1,수인여자,슬라임 5마리를 처치하고 슬라임볼 5개를 얻어와 주세요. 보상을 드릴게요.,알겠습니다. 금방 다녀오겠습니다.,2,null,null,null,null
+2,수인여자,"조심하세요, 모험가님! 슬라임들이 생각보다 강할 수 있어요.",걱정 마세요. 금방 돌아오겠습니다.,3,null,null,null,null
+3,모험가,(모험가는 슬라임을 처치하고 돌아왔다),슬라임볼을 가져왔습니다.,4,null,null,null,null
+4,수인여자,"정말 감사합니다, 모험가님! 이것은 보상입니다.",감사합니다.,5,null,null,null,null
+5,수인여자,"안녕히 가세요, 모험가님!",,null,null,null,null,null
+6,수인여자,알겠습니다. 다른 때에 봬요.,,null,null,null,null,null
