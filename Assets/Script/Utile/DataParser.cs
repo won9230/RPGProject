@@ -8,12 +8,8 @@ public struct DialogParserData
 	public int index;
 	public string speaker;
 	public string dialogue;
-	public string choice1;
-	public int next1;
-	public string choice2;
-	public int next2;
-	public string choice3;
-	public int next3;
+	public string[] choices;
+	public int[] nextId;
 }
 
 public class DataParser : MonoBehaviour 
@@ -33,6 +29,7 @@ public class DataParser : MonoBehaviour
 	private void Awake()
 	{
 		var parser = CSVReader.Read(FILE_DATA);
+		
         foreach (var item in parser)
         {
 			//Debug.Log($"next3.GetType() {item[NEXT3].GetType()}");
@@ -52,16 +49,20 @@ public class DataParser : MonoBehaviour
 
 	private DialogParserData GetDialogData(int _id, string _speaker, string _dialogue, string _choice1, string _choice2, string _choice3, int _next1, int _next2, int _next3)
 	{
-		DialogParserData tmpdate = new DialogParserData();
-		tmpdate.index = _id;
-		tmpdate.speaker = _speaker;
-		tmpdate.dialogue = _dialogue;
-		tmpdate.choice1 = _choice1;
-		tmpdate.choice2 = _choice2;
-		tmpdate.choice3 = _choice3;
-		tmpdate.next1 = _next1;
-		tmpdate.next2 = _next2;
-		tmpdate.next3 = _next3;
+		DialogParserData tmpdate = new DialogParserData
+		{
+			index = _id,
+			speaker = _speaker,
+			dialogue = _dialogue,
+			choices = new string[3],
+			nextId = new int[3]
+		};
+		tmpdate.choices[0] = _choice1;
+		tmpdate.choices[1] = _choice2;
+		tmpdate.choices[2] = _choice3;
+		tmpdate.nextId[0] = _next1;
+		tmpdate.nextId[1] = _next2;
+		tmpdate.nextId[2] = _next3;
 
 		return tmpdate;
 	}

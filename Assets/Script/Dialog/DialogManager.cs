@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 public class DialogManager : MonoBehaviour
 {
@@ -10,14 +12,9 @@ public class DialogManager : MonoBehaviour
 	public int id;
 	public TMP_Text speaker;
 	public TMP_Text dialog;
-	public GameObject choiceButton1;
-	public GameObject choiceButton2;
-	public GameObject choiceButton3;
-	public TMP_Text choice1;
-	public TMP_Text choice2;
-	public TMP_Text choice3;
-	public int nextId1;
-	public int nextId2;
+	public List<GameObject> choiceButtons;
+	public List<TMP_Text> choices;
+
 	public int nextId3;
 	private bool isSelector = false;
 	public int cntId;
@@ -55,18 +52,22 @@ public class DialogManager : MonoBehaviour
 		cntId = id;
 		speaker.text = dialogParserDatas[id].speaker;
 		dialog.text = dialogParserDatas[id].dialogue;
-		//Debug.Log(dialogParserDatas[id].choice1);
+		for (int i = 0; i < choiceButtons.Count; i++)
+		{
+			choiceButtons[i].SetActive(false);
+		}
+		Debug.Log($"speaker {dialogParserDatas[id].speaker}\n id {id}");
 	}
 
 	public bool NextDialog()
 	{
-		if (dialogParserDatas[cntId].choice1 == DIALOG_END)
+		if (dialogParserDatas[cntId].choices[0] == DIALOG_END)
 		{
 			EndDialog();
 			Debug.Log("End");
 			return true;
 		}
-		else if(dialogParserDatas[cntId].choice1 != BLANK)
+		else if(dialogParserDatas[cntId].choices[0] != BLANK)
 		{
 			ChoicesDialog();
 			Debug.Log("Choices");
@@ -83,7 +84,7 @@ public class DialogManager : MonoBehaviour
 
 	public void ChoicesDialog()
 	{
-
+		ChoiceButtonsActive();
 	}
 
 	public void EndDialog()
@@ -94,11 +95,26 @@ public class DialogManager : MonoBehaviour
 	//버튼 초기화
 	private void ButtonInit()
 	{
-		choice1 = choiceButton1.transform.GetChild(0).GetComponent<TMP_Text>();
-		choice2 = choiceButton2.transform.GetChild(0).GetComponent<TMP_Text>();
-		choice3 = choiceButton3.transform.GetChild(0).GetComponent<TMP_Text>();
-		choiceButton1.SetActive(false);
-		choiceButton2.SetActive(false);
-		choiceButton3.SetActive(false);
+        foreach (var button in choiceButtons)
+        {
+			choices.Add(button.transform.GetChild(0).GetComponent<TMP_Text>());
+			button.SetActive(false);
+        }
 	}
+
+	private void ChoiceButtonsActive()
+	{
+		for (int i = 0; i < choiceButtons.Count; i++)
+		{
+			if(dialogParserDatas[cntId].choices[i] != "")
+			{
+				int index = i;
+				choiceButtons[index].SetActive(true);
+				choices[index].text = dialogParserDatas[cntId].choices[index];
+				Debug.Log($"next = {dialogParserDatas[cntId].nextId[index]}");
+				//Debug.Log($"next = {dialogParserDatas.Count}");
+				choiceButtons[index].GetComponent<Button>().onClick.AddListener(() => StartDialog(dialogParserDatas[cntId].nextId[index]));
+			}
+		}
+    }
 }
