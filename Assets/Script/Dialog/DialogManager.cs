@@ -15,7 +15,6 @@ public class DialogManager : MonoBehaviour
 	public List<GameObject> choiceButtons;
 	public List<TMP_Text> choices;
 
-	public int nextId3;
 	private bool isSelector = false;
 	public int cntId;
 	private DataParser dataParser;
@@ -50,13 +49,14 @@ public class DialogManager : MonoBehaviour
 	public void StartDialog(int id)
 	{
 		cntId = id;
-		speaker.text = dialogParserDatas[id].speaker;
-		dialog.text = dialogParserDatas[id].dialogue;
+		//Debug.Log(dialogParserDatas[cntId].speaker);
+		speaker.text = dialogParserDatas[cntId].speaker;
+		dialog.text = dialogParserDatas[cntId].dialogue;
 		for (int i = 0; i < choiceButtons.Count; i++)
 		{
 			choiceButtons[i].SetActive(false);
 		}
-		Debug.Log($"speaker {dialogParserDatas[id].speaker}\n id {id}");
+		//Debug.Log($"speaker {dialogParserDatas[cntId].speaker}\n id {cntId}");
 	}
 
 	public bool NextDialog()
@@ -111,8 +111,9 @@ public class DialogManager : MonoBehaviour
 				int index = i;
 				choiceButtons[index].SetActive(true);
 				choices[index].text = dialogParserDatas[cntId].choices[index];
-				Debug.Log($"next = {dialogParserDatas[cntId].nextId[index]}");
-				//Debug.Log($"next = {dialogParserDatas.Count}");
+				//Debug.Log($"next = {dialogParserDatas[cntId].nextId[index]}");
+				Debug.Log($"index = {dialogParserDatas[cntId].nextId[index]}");
+				choiceButtons[index].GetComponent<Button>().onClick.RemoveAllListeners();
 				choiceButtons[index].GetComponent<Button>().onClick.AddListener(() => StartDialog(dialogParserDatas[cntId].nextId[index]));
 			}
 		}
