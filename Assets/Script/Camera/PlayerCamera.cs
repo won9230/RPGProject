@@ -11,6 +11,7 @@ public class PlayerCamera : MonoBehaviour
 	[SerializeField] private float xMoveSpeed = 150;
 	[SerializeField] private float yMoveSpeed = 100;
 	[SerializeField] private float yOffset = 1.5f;
+	public LayerMask collisionLayers;
 	private float yMinLimit = 5;
 	private float yMaxLimit = 80;
 	private float x, y;
@@ -44,8 +45,8 @@ public class PlayerCamera : MonoBehaviour
 	private void LateUpdate()
 	{
 		transform.position = transform.rotation * new Vector3(0, yOffset, -distance) + target.position;
-		//target.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
 	}
+
 	private float ClampAngele(float angle, float min, float max)
 	{
 		if (angle < -360)
@@ -58,5 +59,7 @@ public class PlayerCamera : MonoBehaviour
 		}
 		return Mathf.Clamp(angle, min, max);
 	}
+
+
 }
 

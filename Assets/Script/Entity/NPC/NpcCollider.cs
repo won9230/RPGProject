@@ -14,8 +14,9 @@ public class NpcCollider : MonoBehaviour
 	{
 		if(other.gameObject.CompareTag("Player"))
 		{
+			PlayerManager pm = other.GetComponent<PlayerManager>();
 			npcManager.worldSpaceCanvas.gameObject.SetActive(true);
-			//other.GetComponent<PlayerManager>().isDialog = true;
+			pm.inNpc = npcManager;
 		}
 	}
 
@@ -23,8 +24,9 @@ public class NpcCollider : MonoBehaviour
 	{
 		if (other.gameObject.CompareTag("Player"))
 		{
+			PlayerManager pm = other.GetComponent<PlayerManager>();
 			npcManager.worldSpaceCanvas.gameObject.SetActive(false);
-			//other.GetComponent<PlayerManager>().isDialog = false;
+			pm.inNpc = null;
 		}
 	}
 }

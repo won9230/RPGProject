@@ -12,13 +12,15 @@ public class DialogManager : MonoBehaviour
 	public int id;
 	public TMP_Text speaker;
 	public TMP_Text dialog;
+	public GameObject dialogPanel;
 	public List<GameObject> choiceButtons;
 	public List<TMP_Text> choices;
 
-	private bool isSelector = false;
 	public int cntId;
 	private DataParser dataParser;
 	public static DialogManager instance = null;
+	List<DialogParserData> dialogParserDatas = new List<DialogParserData>();
+
 
 	void Awake()
 	{
@@ -32,33 +34,34 @@ public class DialogManager : MonoBehaviour
 			Destroy(this.gameObject);
 			Debug.Log("DialogManager오브젝트가 싱글톤에 의해 삭제");
 		}
+
 		ButtonInit();
+		dialogPanel.SetActive(false);
 		cntId = -1;
 	}
-	List<DialogParserData> dialogParserDatas = new List<DialogParserData>();
 	private void Start()
 	{
 		dataParser = GetComponent<DataParser>();
 		GetDialog();
 	}
+	//데이터 가져오기
 	private void GetDialog()
 	{
 		dialogParserDatas = dataParser.dialogDatas;
 	}
-	
+	//대화를 화면에 띄우는 함수
 	public void StartDialog(int id)
 	{
+		dialogPanel.SetActive(true);
 		cntId = id;
-		//Debug.Log(dialogParserDatas[cntId].speaker);
 		speaker.text = dialogParserDatas[cntId].speaker;
 		dialog.text = dialogParserDatas[cntId].dialogue;
 		for (int i = 0; i < choiceButtons.Count; i++)
 		{
 			choiceButtons[i].SetActive(false);
 		}
-		//Debug.Log($"speaker {dialogParserDatas[cntId].speaker}\n id {cntId}");
 	}
-
+	//대화를 다음으로 넘기는 함수
 	public bool NextDialog()
 	{
 		if (dialogParserDatas[cntId].choices[0] == DIALOG_END)
@@ -81,14 +84,15 @@ public class DialogManager : MonoBehaviour
 			return false;
 		}
 	}
-
+	//선택지 활성화
 	public void ChoicesDialog()
 	{
 		ChoiceButtonsActive();
 	}
-
+	//대화 종료
 	public void EndDialog()
 	{
+		dialogPanel.SetActive(false);
 		cntId = -1;
 	}
 
@@ -101,7 +105,7 @@ public class DialogManager : MonoBehaviour
 			button.SetActive(false);
         }
 	}
-
+	//선택지 버튼 활성화
 	private void ChoiceButtonsActive()
 	{
 		for (int i = 0; i < choiceButtons.Count; i++)

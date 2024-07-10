@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerDialog : Node
 {
 	private PlayerManager pm;
-
 	public PlayerDialog(PlayerManager _pm)
 	{
 		pm = _pm;
@@ -14,19 +13,19 @@ public class PlayerDialog : Node
 
 	public override NodeState Evaluate()
 	{
-		if(Input.GetKeyUp(KeyCode.F)) 
+		if(Input.GetKeyUp(KeyCode.F) && pm.inNpc != null)
 		{
-			if(DialogManager.instance.cntId == -1) 
+			if(DialogManager.instance.cntId == -1 && pm.inNpc != null) 
 			{
-				DialogManager.instance.StartDialog(0);
+				pm.inNpc.NpcDialogStart();
+				pm.playerCamera.SetActive(false);
 				pm.isDialog = true;
 			}
-			else
+			else if(DialogManager.instance.NextDialog())
 			{
-				if (DialogManager.instance.NextDialog()) 
-				{
-					pm.isDialog = false;
-				}
+				pm.inNpc.NpcDialogEnd();
+				pm.playerCamera.SetActive(true);
+				pm.isDialog = false;
 			}
 		}
 		if (pm.isDialog)

@@ -23,7 +23,7 @@ public class PlayerManager : Entity
 	[Header("플레이어 뷰 관련")]
 	public float viewAngle = 0f;
 	public float viewRadius = 1f;
-	public LayerMask tragetMask;
+	public LayerMask targetMask;
 	public LayerMask obstacleMask;
 	[Header("스킬 키")]
 	public KeyCode[] keys;
@@ -32,19 +32,24 @@ public class PlayerManager : Entity
 	[Header("기타")]
 	public LayerMask groundLayer;
 	public float groundCheck = 0.2f;
+	public NpcManager inNpc = null;
 	public GameObject mainCamera;
+	public GameObject playerCamera;
 	//숨김
 	//이동 관련
+	[Header("이동 관련")]
 	[HideInInspector] public float speed;
 	[HideInInspector] public float targetRotation = 0f;
 	[HideInInspector] public float rotationVelocity = 0f;
 	[HideInInspector] public float verticalVelocity = 0f;
 	//점프 관련
+	[Header("점프 관련")]
 	public float fallTimeoutDelta;
 	public float jumpTimeoutDelta;
 	public float terminalVelocity = 53.0f;
 	public bool isGround = false;   //바닥 체크
-	//애니메이션 관련
+									//애니메이션 관련
+	[Header("애니메이션 관련")]
 	public bool hasAnimator;
 	public int animIDSpeed;
 	public int animIDJump;
@@ -64,6 +69,7 @@ public class PlayerManager : Entity
 		AssignAnimationIDs();
 		fallTimeoutDelta = fallTimeout;
 		jumpTimeoutDelta = jumpTimeout;
+		playerCamera.SetActive(true);
 	}
 
 	//애니메이션 아이디 저장
@@ -72,5 +78,4 @@ public class PlayerManager : Entity
 		animIDSpeed = Animator.StringToHash("Speed");
 		animIDJump = Animator.StringToHash("Jump");
 	}
-
 }

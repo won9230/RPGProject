@@ -69,7 +69,7 @@ public class PlayerMove : Node
 		pm.animationBlend = Mathf.Lerp(pm.animationBlend, _targetSpeed, Time.deltaTime * pm.speedChangeRate);
 		if (pm.animationBlend < 0.01f) pm.animationBlend = 0f;
 
-		// normalise input direction
+		// normalized input direction
 		Vector3 inputDirection = new Vector3(_moveX, 0.0f, _moveZ).normalized;
 
 		if (_moveX != 0 || _moveZ != 0)
@@ -98,5 +98,7 @@ public class PlayerMove : Node
 
 		return state;
 	}
+
+
 
 }

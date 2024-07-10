@@ -19,7 +19,7 @@ public class PlayerView : Node
 	{
 		coll.Clear();
 		Vector3 myPos = pm.transform.position + Vector3.up * 0.5f;
-		Collider[] tragets = Physics.OverlapSphere(myPos, pm.viewRadius, pm.tragetMask);
+		Collider[] tragets = Physics.OverlapSphere(myPos, pm.viewRadius, pm.targetMask);
 
 		float lookingAngle = pm.transform.eulerAngles.y;
 		//Vector3 rightDir = AngleToDir(pm.transform.eulerAngles.y + pm.viewAngle * 0.5f);
