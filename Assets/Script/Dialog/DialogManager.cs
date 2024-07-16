@@ -32,7 +32,7 @@ public class DialogManager : MonoBehaviour
 		else
 		{
 			Destroy(this.gameObject);
-			Debug.Log("DialogManager¿ÀºêÁ§Æ®°¡ ½Ì±ÛÅæ¿¡ ÀÇÇØ »èÁ¦");
+			Debug.Log("DialogManagerì˜¤ë¸Œì íŠ¸ê°€ ì‹±ê¸€í†¤ì— ì˜í•´ ì‚­ì œ");
 		}
 
 		ButtonInit();
@@ -44,12 +44,12 @@ public class DialogManager : MonoBehaviour
 		dataParser = GetComponent<DataParser>();
 		GetDialog();
 	}
-	//µ¥ÀÌÅÍ °¡Á®¿À±â
+	//ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
 	private void GetDialog()
 	{
 		dialogParserDatas = dataParser.dialogDatas;
 	}
-	//´ëÈ­¸¦ È­¸é¿¡ ¶ç¿ì´Â ÇÔ¼ö
+	//ëŒ€í™”ë¥¼ í™”ë©´ì— ë„ìš°ëŠ” í•¨ìˆ˜
 	public void StartDialog(int id)
 	{
 		dialogPanel.SetActive(true);
@@ -61,7 +61,7 @@ public class DialogManager : MonoBehaviour
 			choiceButtons[i].SetActive(false);
 		}
 	}
-	//´ëÈ­¸¦ ´ÙÀ½À¸·Î ³Ñ±â´Â ÇÔ¼ö
+	//ëŒ€í™”ë¥¼ ë‹¤ìŒìœ¼ë¡œ ë„˜ê¸°ëŠ” í•¨ìˆ˜
 	public bool NextDialog()
 	{
 		if (dialogParserDatas[cntId].choices[0] == DIALOG_END)
@@ -84,19 +84,19 @@ public class DialogManager : MonoBehaviour
 			return false;
 		}
 	}
-	//¼±ÅÃÁö È°¼ºÈ­
+	//ì„ íƒì§€ í™œì„±í™”
 	public void ChoicesDialog()
 	{
 		ChoiceButtonsActive();
 	}
-	//´ëÈ­ Á¾·á
+	//ëŒ€í™” ì¢…ë£Œ
 	public void EndDialog()
 	{
 		dialogPanel.SetActive(false);
 		cntId = -1;
 	}
 
-	//¹öÆ° ÃÊ±âÈ­
+	//ë²„íŠ¼ ì´ˆê¸°í™”
 	private void ButtonInit()
 	{
         foreach (var button in choiceButtons)
@@ -105,7 +105,7 @@ public class DialogManager : MonoBehaviour
 			button.SetActive(false);
         }
 	}
-	//¼±ÅÃÁö ¹öÆ° È°¼ºÈ­
+	//ì„ íƒì§€ ë²„íŠ¼ í™œì„±í™”
 	private void ChoiceButtonsActive()
 	{
 		for (int i = 0; i < choiceButtons.Count; i++)

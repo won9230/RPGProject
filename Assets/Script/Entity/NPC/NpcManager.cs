@@ -7,22 +7,22 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 public class NpcManager : MonoBehaviour
 {
-	//NPC´ÙÀÌ¾ó·Î±× Ã¼Å© UI¿ÀºêÁ§Æ®
+	//NPCë‹¤ì´ì–¼ë¡œê·¸ ì²´í¬ UIì˜¤ë¸Œì íŠ¸
 	public GameObject dialogUI;
 	public bool isdialog = false;
-	//UI¿ÀºêÁ§Æ®¸¦ ³Ö¾îÁÙ Äµ¹ö½º
+	//UIì˜¤ë¸Œì íŠ¸ë¥¼ ë„£ì–´ì¤„ ìº”ë²„ìŠ¤
 	[HideInInspector] public GameObject worldSpaceCanvas;
-	//Ä«¸Ş¶ó ¿ÀºêÁ§Æ®
+	//ì¹´ë©”ë¼ ì˜¤ë¸Œì íŠ¸
 	public GameObject cameraSetting;
 
 	private void Awake()
 	{
-		//NPC DialogUI ºñÈ°¼ºÈ­
+		//NPC DialogUI ï¿½ï¿½È°ï¿½ï¿½È­
 		worldSpaceCanvas = this.transform.Find("World Space Canvas").gameObject;
 		worldSpaceCanvas.SetActive(false);
 		cameraSetting.SetActive(false);
 		if (worldSpaceCanvas == null)
-			Debug.Log("worldSpaceCanvas¸¦ Ã£Áö ¸øÇÔ");
+			Debug.Log("worldSpaceCanvasï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 	}
 
 	public void NpcDialogStart()

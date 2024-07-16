@@ -10,12 +10,12 @@ public class PlayerJump : Node
 	}
 	public override NodeState Evaluate()
 	{
-		//Ground¸¦ Ã¼Å©ÇÕ´Ï´Ù.
+		//Groundë¥¼ ì²´í¬í•©ë‹ˆë‹¤.
 		pm.isGround = Physics.Raycast(pm.transform.position, Vector3.down, pm.groundCheck, pm.groundLayer);
-		//ÇÃ·¹ÀÌ¾î Á¡ÇÁ
+		//í”Œë ˆì´ì–´ ì í”„
 		if (pm.isGround)
 		{
-			//¾Ö´Ï¸ŞÀÌ¼Ç °ü·Ã
+			//ì• ë‹ˆë©”ì´ì…˜ ê´€ë ¨
 			if (pm.hasAnimator)
 			{
 				pm.animator.SetBool(pm.animIDJump, false);

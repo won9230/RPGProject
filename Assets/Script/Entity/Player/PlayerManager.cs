@@ -5,57 +5,57 @@ using UnityEngine;
 
 public class PlayerManager : Entity
 {
-	[Header("ÄÄÆ÷³ÍÆ®")]
+	[Header("ì»´í¬ë„ŒíŠ¸")]
 	public CharacterController controller;
 	public Animator animator;
 
-	[Header("ÇÃ·¹ÀÌ¾î ÀÌµ¿ °ü·Ã")]
+	[Header("í”Œë ˆì´ì–´ ì´ë™ ê´€ë ¨")]
 	public float moveSpeed;
 	public float sprintSpeed = 7f;
 	[Range(0.0f, 0.3f)]
 	public float rotationSmoothTime = 0.12f;
 	public float speedChangeRate = 1f;
-	[Header("ÇÃ·¹ÀÌ¾î Á¡ÇÁ °ü·Ã")]
+	[Header("í”Œë ˆì´ì–´ ì í”„ ê´€ë ¨")]
 	public float jumpHeight = 1.2f;
 	public float fallTimeout = 0.15f;
 	public float jumpTimeout = 0.70f;
 	public float gravity = -15.0f;
-	[Header("ÇÃ·¹ÀÌ¾î ºä °ü·Ã")]
+	[Header("í”Œë ˆì´ì–´ ë·° ê´€ë ¨")]
 	public float viewAngle = 0f;
 	public float viewRadius = 1f;
 	public LayerMask targetMask;
 	public LayerMask obstacleMask;
-	[Header("½ºÅ³ Å°")]
+	[Header("ìŠ¤í‚¬ í‚¤")]
 	public KeyCode[] keys;
-	[Header("´ÙÀÌ¾ó ·Î±×")]
+	[Header("ë‹¤ì´ì–¼ ë¡œê·¸ ê´€ë ¨")]
 	public bool isDialog;
-	[Header("±âÅ¸")]
+	[Header("ì¸ë²¤í† ë¦¬")]
+	public bool isInventory = false;
+	public GameObject inventory;
+	[Header("ê¸°íƒ€")]
 	public LayerMask groundLayer;
 	public float groundCheck = 0.2f;
 	public NpcManager inNpc = null;
 	public GameObject mainCamera;
 	public GameObject playerCamera;
-	//¼û±è
-	//ÀÌµ¿ °ü·Ã
-	[Header("ÀÌµ¿ °ü·Ã")]
+	//ìˆ¨ê¹€
+	//ì´ë™ ê´€ë ¨
 	[HideInInspector] public float speed;
 	[HideInInspector] public float targetRotation = 0f;
 	[HideInInspector] public float rotationVelocity = 0f;
 	[HideInInspector] public float verticalVelocity = 0f;
-	//Á¡ÇÁ °ü·Ã
-	[Header("Á¡ÇÁ °ü·Ã")]
+	//ì í”„ ê´€ë ¨
 	public float fallTimeoutDelta;
 	public float jumpTimeoutDelta;
 	public float terminalVelocity = 53.0f;
-	public bool isGround = false;   //¹Ù´Ú Ã¼Å©
-									//¾Ö´Ï¸ŞÀÌ¼Ç °ü·Ã
-	[Header("¾Ö´Ï¸ŞÀÌ¼Ç °ü·Ã")]
+	public bool isGround = false;   //ë°”ë‹¥ ì²´í¬
+									//ì• ë‹ˆë©”ì´ì…˜ ê´€ë ¨
 	public bool hasAnimator;
 	public int animIDSpeed;
 	public int animIDJump;
 	public float animationBlend;
 
-	//±âÅ¸
+	//ê¸°íƒ€
 
 	private void Awake()
 	{
@@ -63,6 +63,7 @@ public class PlayerManager : Entity
 		controller = GetComponent<CharacterController>();
 		keys = new KeyCode[] { KeyCode.Q, KeyCode.E, KeyCode.R, KeyCode.F, KeyCode.Tab };
 		mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+		inventory = GameObject.Find("Canvas").transform.Find("Inventory").transform.Find("InventoryUI").gameObject;
 	}
 	private void Start()
 	{
@@ -72,7 +73,7 @@ public class PlayerManager : Entity
 		playerCamera.SetActive(true);
 	}
 
-	//¾Ö´Ï¸ŞÀÌ¼Ç ¾ÆÀÌµğ ÀúÀå
+	//ì• ë‹ˆë©”ì´ì…˜ ì•„ì´ë”” ì €ì¥
 	private void AssignAnimationIDs()
 	{
 		animIDSpeed = Animator.StringToHash("Speed");

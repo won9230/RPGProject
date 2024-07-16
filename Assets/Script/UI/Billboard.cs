@@ -13,9 +13,9 @@ public class Billboard : MonoBehaviour
 
 	void Update()
 	{
-		// ¿ÀºêÁ§Æ®°¡ Ä«¸Ş¶ó¸¦ ¹Ù¶óº¸µµ·Ï ¼³Á¤
+		// ì˜¤ë¸Œì íŠ¸ê°€ ì¹´ë©”ë¼ë¥¼ ë°”ë¼ë³´ë„ë¡ ì„¤ì •
 		Vector3 direction = targetCamera.position - transform.position;
-		direction.y = 0; // yÃà È¸ÀüÀ» ¸·¾Æ ¼öÁ÷ ÃàÀ» °íÁ¤
+		direction.y = 0; // yì¶• íšŒì „ì„ ë§‰ì•„ ìˆ˜ì§ ì¶•ì„ ê³ ì •
 		transform.rotation = Quaternion.LookRotation(direction);
 	}
 }

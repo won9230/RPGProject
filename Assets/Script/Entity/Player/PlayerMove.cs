@@ -39,26 +39,26 @@ public class PlayerMove : Node
 		//pm.rb.MovePosition(pm.rb.position + velocity * Time.deltaTime);
 
 		//======================================================================================================
-		//½ºÇÇµå
+		//ìŠ¤í”¼ë“œ
 		float _targetSpeed = Input.GetKey(KeyCode.LeftShift) ? pm.sprintSpeed : pm.moveSpeed;
 
-		//ÀÔ·ÂÀÌ ¾øÀ¸¸é ¼Óµµ 0
+		//ì…ë ¥ì´ ì—†ìœ¼ë©´ ì†ë„ 0
 		if (_moveX == 0 && _moveZ == 0) _targetSpeed = 0.0f;
-		//ÇÃ·¹ÀÌ¾îÀÇ ÇöÁ¦ ¼Óµµ
+		//í”Œë ˆì´ì–´ì˜ í˜„ì œ ì†ë„
 		float _currentHorizontalSpeed = new Vector3(pm.controller.velocity.x, 0.0f, pm.controller.velocity.z).magnitude;
 		float _speedOffset = 0.1f;
 		//float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f
 
-		// ÇÃ·¹ÀÌ¾î ¼Óµµ º¸°£
+		// í”Œë ˆì´ì–´ ì†ë„ ë³´ê°„
 		if (_currentHorizontalSpeed < _targetSpeed - _speedOffset ||
 			_currentHorizontalSpeed > _targetSpeed + _speedOffset)
 		{
-			// º¸´Ù À¯±âÀûÀÎ ¼Óµµ º¯È­¸¦ ÁÖ´Â ¼±ÇüÀûÀÎ °á°ú°¡ ¾Æ´Ñ °î¼±ÀûÀÎ °á°ú¸¦ ¸¸µé¾î³À´Ï´Ù
-			// LerpÀÇ T´Â Å¬·¥ÇÁ·Î °íÁ¤µÇ¾î ÀÖÀ¸¹Ç·Î ¼Óµµ¸¦ Å¬·¥ÇÁÇÒ ÇÊ¿ä°¡ ¾ø½À´Ï´Ù
+			// ë³´ë‹¤ ìœ ê¸°ì ì¸ ì†ë„ ë³€í™”ë¥¼ ì£¼ëŠ” ì„ í˜•ì ì¸ ê²°ê³¼ê°€ ì•„ë‹Œ ê³¡ì„ ì ì¸ ê²°ê³¼ë¥¼ ë§Œë“¤ì–´ëƒ…ë‹ˆë‹¤
+			// Lerpì˜ TëŠ” í´ë¨í”„ë¡œ ê³ ì •ë˜ì–´ ìˆìœ¼ë¯€ë¡œ ì†ë„ë¥¼ í´ë¨í”„í•  í•„ìš”ê°€ ì—†ìŠµë‹ˆë‹¤
 			pm.speed = Mathf.Lerp(_currentHorizontalSpeed, _targetSpeed * 1f,
 				Time.fixedDeltaTime * pm.speedChangeRate);
 
-			// ¼Ò¼öÁ¡ 3ÀÚ¸®¾Æ·¡´Â Á¤¸®
+			// ì†Œìˆ˜ì  3ìë¦¬ì•„ë˜ëŠ” ì •ë¦¬
 			pm.speed = Mathf.Round(pm.speed * 1000f) / 1000f;
 		}
 		else
@@ -78,7 +78,7 @@ public class PlayerMove : Node
 			float rotation = Mathf.SmoothDampAngle(pm.transform.eulerAngles.y, pm.targetRotation, ref pm.rotationVelocity,
 				pm.rotationSmoothTime);
 
-			// Ä«¸Ş¶ó Æ÷Áö¼Ç¿¡ ¸ÂÃç µ¹¸°´Ù.
+			// ì¹´ë©”ë¼ í¬ì§€ì…˜ì— ë§ì¶° ëŒë¦°ë‹¤.
 			pm.transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
 		}
 

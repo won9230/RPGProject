@@ -31,16 +31,16 @@ public class PlayerAttack : Node
 		//bool next2 = false;
 		//bool next3 = false;
 
-		//Debug.Log("°ø°İ1");
+		//Debug.Log("ï¿½ï¿½ï¿½ï¿½1");
 		//CancellationTokenSource cts = new CancellationTokenSource();
 
-		//// Q Å°°¡ ´­¸± ¶§±îÁö ±â´Ù¸²
-		//// ÀÏÁ¤ ½Ã°£(¿©±â¼­´Â 5ÃÊ)ÀÌ Áö³ª¸é Ãë¼ÒÇÕ´Ï´Ù.
+		//// Q í‚¤ê°€ ëˆŒë¦´ ë•Œê¹Œì§€ ê¸°ë‹¤ë¦¼
+		//// ì¼ì • ì‹œê°„(ì—¬ê¸°ì„œëŠ” 5ì´ˆ)ì´ ì§€ë‚˜ë©´ ì·¨ì†Œí•©ë‹ˆë‹¤.	
 		//var delayTask = UniTask.Delay(TimeSpan.FromSeconds(5), cancellationToken: cts.Token);
 		//Debug.Log("asdasd");
 
 		await UniTask.Delay(TimeSpan.FromSeconds(1));
-		Debug.Log("1ÃÊ");
+		Debug.Log("1ï¿½ï¿½");
 
 	}
 }

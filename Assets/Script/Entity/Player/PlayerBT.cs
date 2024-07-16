@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using BehaviorTree;
+using UnityEngine.Experimental.AI;
 
 public class PlayerBT : Tree
 {
 	public PlayerManager pm;
-
-	//ÇÃ·¹ÀÌ¾î ½ºÅ³
-	//ÇÃ·¹ÀÌ¾î Á×À½
-	//ÇÃ·¹ÀÌ¾î ¾ÆÀÌÅÛ ¸Ô±â
-	//ÇÃ·¹ÀÌ¾î ¾ÆÀÌÅÛ »ç¿ë
-	//ÇÃ·¹ÀÌ¾î Àåºñ Âø¿ë
-	//ÇÃ·¹ÀÌ¾î Àåºñ & ¾ÆÀÌÅÛ ¹ö¸®±â
-	//ÇÃ·¹ÀÌ¾î ÀÎº¥Åä¸®
-	//ÇÃ·¹ÀÌ¾î Äù½ºÆ®
-	//ÇÃ·¹ÀÌ¾î ´ÙÀÌ¾ó·Î±×
+	
+	//í”Œë ˆì´ì–´ ìŠ¤í‚¬
+	//í”Œë ˆì´ì–´ ì£½ìŒ
+	//í”Œë ˆì´ì–´ ì•„ì´í…œ ë¨¹ê¸°
+	//í”Œë ˆì´ì–´ ì•„ì´í…œ ì‚¬ìš©
+	//í”Œë ˆì´ì–´ ì¥ë¹„ ì°©ìš©
+	//í”Œë ˆì´ì–´ ì¥ë¹„ & ì•„ì´í…œ ë²„ë¦¬ê¸°
+	//í”Œë ˆì´ì–´ ì¸ë²¤í† ë¦¬
+	//í”Œë ˆì´ì–´ í€˜ìŠ¤íŠ¸
+	//í”Œë ˆì´ì–´ ë‹¤ì´ì–¼ë¡œê·¸
 	protected override void OnEnter()
 	{
 		pm = GetComponent<PlayerManager>();
@@ -26,10 +27,11 @@ public class PlayerBT : Tree
 		{
 			new Parallel(1, new List<Node>
 			{
-				new PlayerMove(pm),	//ÇÃ·¹ÀÌ¾î ÀÌµ¿
-				new PlayerJump(pm),	//ÇÃ·¹ÀÌ¾î Á¡ÇÁ
+				new PlayerMove(pm),	//ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ìµï¿½
+				new PlayerJump(pm),	//ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
+				new PlayerInventory(pm)	//ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Îºï¿½ï¿½ä¸®
 			}),
-			new PlayerAttack(pm),		//ÇÃ·¹ÀÌ¾î °ø°İ
+			new PlayerAttack(pm),		//ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 			new PlayerDialog(pm),
 
 		});

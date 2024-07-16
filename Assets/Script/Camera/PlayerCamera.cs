@@ -29,7 +29,7 @@ public class PlayerCamera : MonoBehaviour
 	{
 		if (target == null)
 		{
-			Debug.Log("Å¸°ÙÀÌ ¾ø½À´Ï´Ù.");
+			Debug.Log("íƒ€ê²Ÿì´ ì—†ìŠµë‹ˆë‹¤.");
 			return;
 		}
 

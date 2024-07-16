@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-	[Header("¿£Æ¼Æ¼ ½ºÅİ")]
+	[Header("í”Œë ˆì´ì–´ ìŠ¤í…Ÿ")]
 	public int hp;
 	public int mp;
 
