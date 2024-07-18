@@ -2,10 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.WebSockets;
+using Unity.VisualScripting;
 using UnityEditor.Search;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Experimental.AI;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -26,11 +29,34 @@ public class InventoryUI : MonoBehaviour
 	[SerializeField] private GameObject inventoryUI;
 
 	List<ItemSlotUI> slotUIList = new List<ItemSlotUI>();
+
+	//마우스 클릭
+	private GraphicRaycaster gr;
+	private PointerEventData ped;
+	private List<RaycastResult> rrList;
+
+	private ItemSlotUI dragSlot;	//드래그 시작한 슬록
+	private Transform dragIconTransform;	//해당 슬롯 아이콘의 Transform
+
+	private Vector3 dragIconPoint;	//드래그 시작 시 슬롯 위치
+	private Vector3 dragCursorPoint;	//드랙 시작 시 커서의 위치
+	private int dragSlotSiblingIndex;
 	private void Start()
 	{
 		InitSlot();
 
 	}
+	private void Update()
+	{
+		ped.position = Input.mousePosition;
+
+		OnPointerDown();
+		OnPointerDrag();
+		OnPointerUp();
+	}
+	/// <summary>
+	/// 슬롯 생성
+	/// </summary>
 	private void InitSlot()
 	{
 		slotUiPrefab.TryGetComponent(out RectTransform slotRect);
@@ -88,27 +114,6 @@ public class InventoryUI : MonoBehaviour
 
 		return rt;
 	}
-
-	public void CloseButton()
-	{
-		Debug.Log("CloseButton method called.");
-
-		if (inventoryUI != null)
-		{
-			Debug.Log("inventoryUI is assigned.");
-			Debug.Log($"inventoryUI active state before: {inventoryUI.activeSelf}");
-
-			inventoryUI.SetActive(false);
-
-			Debug.Log($"inventoryUI active state after: {inventoryUI.activeSelf}");
-			Debug.Log("inventoryUI has been set to inactive.");
-		}
-		else
-		{
-			Debug.LogError("inventoryUI is not assigned in the inspector.");
-		}
-	}
-
 
 #if UNITY_EDITOR
 	[SerializeField] private bool showPreview = false;
@@ -216,4 +221,75 @@ public class InventoryUI : MonoBehaviour
 		public static void Destroy(GameObject go) => targetQueue.Enqueue(go);
 	}
 #endif
+
+	private T RaycastAndGetFirstComponent<T>() where T : Component
+	{
+		rrList.Clear();
+
+		gr.Raycast(ped, rrList);
+
+		if(rrList.Count == 0)
+			return null;
+
+		return rrList[0].gameObject.GetComponent<T>();
+	}
+
+	private void OnPointerDown()
+	{
+		if(Input.GetMouseButtonDown(0))
+		{
+			dragSlot = RaycastAndGetFirstComponent<ItemSlotUI>();
+
+			if(dragSlot != null && dragSlot.HasItem)
+			{
+				//위치 기억
+				dragIconTransform = dragSlot.IconRect.transform;
+				dragIconPoint = dragIconTransform.position;
+				dragCursorPoint = Input.mousePosition;
+
+				dragSlotSiblingIndex = dragSlot.transform.GetSiblingIndex();
+				dragSlot.transform.SetAsLastSibling();
+
+				// dragSlot.SetHighlightOnTop(false);
+			}
+			else
+			{
+				dragSlot = null;
+			}
+		}
+	}
+
+	private void OnPointerDrag()
+	{
+		if(dragSlot == null) 
+			return;
+		
+		if(Input.GetMouseButton(0))
+		{
+			dragIconTransform.position = dragIconPoint + (Input.mousePosition - dragCursorPoint);
+		}
+	}
+
+	private void OnPointerUp()
+	{
+		if(Input.GetMouseButtonUp(0))
+		{
+			if(dragSlot != null)
+			{
+				dragIconTransform.position = dragIconPoint;
+
+				dragSlot.transform.SetSiblingIndex(dragSlotSiblingIndex);
+
+				EndDrag();
+
+				dragSlot = null;
+				dragIconTransform = null;
+			}
+		}
+	}
+
+	private void EndDrag()
+	{
+		ItemSlotUI endDragSlot = RaycastAndGetFirstComponent<ItemSlotUI>();
+	}
 }
