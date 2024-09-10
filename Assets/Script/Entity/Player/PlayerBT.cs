@@ -27,13 +27,13 @@ public class PlayerBT : Tree
 		{
 			new Parallel(1, new List<Node>
 			{
-				new PlayerMove(pm),	//�÷��̾� �̵�
-				new PlayerJump(pm),	//�÷��̾� ����
-				new PlayerInventory(pm)	//�÷��̾� �κ��丮
-			}),
-			new PlayerAttack(pm),		//�÷��̾� ����
-			new PlayerDialog(pm),
+				new PlayerMove(pm),	
+				new PlayerJump(pm),
+				new PlayerInventory(pm),
 
+			}),
+			new PlayerAttack(pm),
+			new PlayerDialog(pm),
 		});
 		return root;
 	}

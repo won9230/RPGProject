@@ -25,6 +25,9 @@ public class PlayerManager : Entity
 	public float viewRadius = 1f;
 	public LayerMask targetMask;
 	public LayerMask obstacleMask;
+	[Header("플레이어 공격 관련")]
+	public int attackIndex = 0;
+	public bool isAttack = false;
 	[Header("스킬 키")]
 	public KeyCode[] keys;
 	[Header("다이얼 로그 관련")]
@@ -49,10 +52,11 @@ public class PlayerManager : Entity
 	public float jumpTimeoutDelta;
 	public float terminalVelocity = 53.0f;
 	public bool isGround = false;   //바닥 체크
-									//애니메이션 관련
+	//애니메이션 관련
 	public bool hasAnimator;
 	public int animIDSpeed;
 	public int animIDJump;
+	public int animIDAttack;
 	public float animationBlend;
 
 	//기타
@@ -78,5 +82,6 @@ public class PlayerManager : Entity
 	{
 		animIDSpeed = Animator.StringToHash("Speed");
 		animIDJump = Animator.StringToHash("Jump");
+		animIDAttack = Animator.StringToHash("Attack");
 	}
 }

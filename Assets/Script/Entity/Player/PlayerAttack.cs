@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using BehaviorTree;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 using System.Threading;
 using System;
 
 public class PlayerAttack : Node
 {
 	private PlayerManager pm;
+	private CancellationTokenSource _cancellationTokenSource;
+	private string[] attackAnimNames = { "ComboAttack_1", "ComboAttack_2", "ComboAttack_3" };
 	public PlayerAttack(PlayerManager _pm)
 	{
 		pm = _pm;
@@ -17,30 +18,68 @@ public class PlayerAttack : Node
 
 	public override NodeState Evaluate()
 	{
-	
 		if (Input.GetKeyDown(KeyCode.Q))
 		{
-			RunAsync().Forget();
-			return NodeState.Success;
+			pm.animator.SetTrigger(pm.animIDAttack);
 		}
-		return NodeState.Failure;
+		if (IsAnimPlaying(attackAnimNames))
+			pm.isAttack = true;
+		else
+			pm.isAttack = false;
+
+		if(pm.isAttack)
+		{
+			state = NodeState.Success;
+			return state;
+		}
+		state = NodeState.Failure;
+		return state;
 	}
-	private async UniTaskVoid RunAsync()
+
+	private bool IsAnimPlaying(string[] _attackNames)
 	{
-		//bool next1 = false;
-		//bool next2 = false;
-		//bool next3 = false;
+		AnimatorStateInfo animStateInfo = pm.animator.GetCurrentAnimatorStateInfo(0);
 
-		//Debug.Log("����1");
-		//CancellationTokenSource cts = new CancellationTokenSource();
+        for (int i = 0; i < _attackNames.Length; i++)
+        {
+			if (animStateInfo.IsName(_attackNames[i]))
+			{
+				return true;
+			}
+        }
 
-		//// Q 키가 눌릴 때까지 기다림
-		//// 일정 시간(여기서는 5초)이 지나면 취소합니다.	
-		//var delayTask = UniTask.Delay(TimeSpan.FromSeconds(5), cancellationToken: cts.Token);
-		//Debug.Log("asdasd");
+        return false;
+	}
 
-		await UniTask.Delay(TimeSpan.FromSeconds(1));
-		Debug.Log("1��");
+	private async UniTaskVoid StartAttackTask()
+	{
+		_cancellationTokenSource = new CancellationTokenSource();
+		try
+		{
+			//await LoadWithProgressAsync(_cancellationTokenSource.Token);
+			pm.animator.SetTrigger(pm.animIDAttack);
+			float animInfoLength = pm.animator.GetCurrentAnimatorStateInfo(0).length;
+			
+			await UniTask.Delay(10);
 
+		}
+		catch (OperationCanceledException)
+		{
+			Debug.Log("Attack 취소");
+		}
+		finally
+		{
+			_cancellationTokenSource.Dispose();
+		}
+	}
+
+
+
+	public void CancelLoading()
+	{
+		if (_cancellationTokenSource != null)
+		{
+			_cancellationTokenSource.Cancel();
+		}
 	}
 }

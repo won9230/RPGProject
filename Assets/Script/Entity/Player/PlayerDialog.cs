@@ -13,7 +13,7 @@ public class PlayerDialog : Node
 
 	public override NodeState Evaluate()
 	{
-		if(Input.GetKeyUp(KeyCode.F) && pm.inNpc != null)
+		if(Input.GetKeyDown(KeyCode.F) && pm.inNpc != null)
 		{
 			if(DialogManager.instance.cntId == -1 && pm.inNpc != null) 
 			{

@@ -13,7 +13,7 @@ public class PlayerInventory : Node
 
 	public override NodeState Evaluate()
 	{
-		if(Input.GetKeyDown(KeyCode.Tab)) 
+		if(Input.GetKeyDown(KeyCode.Tab) && !pm.isDialog)
 		{
 			pm.isInventory = !pm.isInventory;
 		}
